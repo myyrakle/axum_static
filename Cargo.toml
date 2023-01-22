@@ -2,7 +2,16 @@
 name = "axum_static"
 version = "0.1.0"
 edition = "2021"
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+authors = ["myyrakle <sssang97@naver.com>"] 
+description = "static file serving router for axum server"
+keywords = ["axum", "static", "file", "serve"] 
+license = "MIT" #라이센스
+include = ["src/lib.rs", "Cargo.toml"] 
+readme = "README.md"
+repository = "https://github.com/myyrakle/axum_static" #레포지토리
+documentation = "https://github.com/myyrakle/axum_static/blob/master/README.md" #문서 사이트
+homepage = "https://github.com/myyrakle/axum_static/blob/master/README.md" #홈페이지 사이트
 
 [dependencies]
+axum = "0.6"
+tower-http = { version = "0.3.5", features = ["fs"] }
