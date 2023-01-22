@@ -3,8 +3,12 @@ use std::path::Path;
 use tower_http::services::ServeDir;
 
 pub fn static_router<P: AsRef<Path>>(path: P) -> Router {
-    async fn handle_error(_err: std::io::Error) -> impl IntoResponse {
-        (StatusCode::INTERNAL_SERVER_ERROR, "something wrong").into_response()
+    async fn handle_error(err: std::io::Error) -> impl IntoResponse {
+        (
+            StatusCode::INTERNAL_SERVER_ERROR,
+            format!("static router IO error: {:?}", err),
+        )
+            .into_response()
     }
 
     let serve_dir = ServeDir::new(path);
