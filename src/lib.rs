@@ -85,7 +85,7 @@ pub async fn content_type_middleware<B>(req: Request<B>, next: Next<B>) -> Respo
             "rtf" => "application/rtf",
             "odt" => "application/vnd.oasis.opendocument.text",
             "ods" => "application/vnd.oasis.opendocument.spreadsheet",
-            _ => "text/plain",
+            _ => "application/octet-stream",
         };
 
         if let Ok(content_type) = content_type.parse() {
