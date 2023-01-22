@@ -27,8 +27,8 @@ The argument of the `static_router` function is the path to read static files ba
 
 Then you can read the file like this.
 It can also be a sub directory.
-![](example/1.png)
-![](example/2.png)
+![](docs/1.png)
+![](docs/2.png)
 
 This is the end.
 
