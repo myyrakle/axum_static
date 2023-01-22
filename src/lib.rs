@@ -94,7 +94,11 @@ pub async fn content_type_middleware<B>(req: Request<B>, next: Next<B>) -> Respo
 
         response
     } else {
-        let response = next.run(req).await;
+        let mut response = next.run(req).await;
+
+        if let Ok(content_type) = "application/octet-stream".parse() {
+            response.headers_mut().insert("Content-Type", content_type);
+        }
 
         response
     }
