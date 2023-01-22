@@ -1,11 +1,11 @@
 [package]
 name = "axum_static"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 authors = ["myyrakle <sssang97@naver.com>"] 
 description = "static file serving router for axum server"
 keywords = ["axum", "static", "file", "serve"] 
-license = "MIT" #라이센스
+license = "MIT" 
 include = ["src/lib.rs", "Cargo.toml"] 
 readme = "README.md"
 repository = "https://github.com/myyrakle/axum_static" #레포지토리
