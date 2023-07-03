@@ -24,6 +24,17 @@ let app = Router::new()
         .nest("/static", axum_static::static_router("static"))
 ```
 
+If your app has state, [you'll need to add](https://docs.rs/axum/latest/axum/routing/struct.Router.html#nesting-routers-with-state) `with_state`, because static_router does not use state (`()`):
+
+```
+let app = Router::new()
+        .route("/", get(index))
+        ......
+        .nest("/static", axum_static::static_router("static").with_state())
+        ......
+        .with_state(YourAppState { ... })
+```
+
 The argument of the `static_router` function is the path to read static files based on the project root path.
 
 Then you can read the file like this.
