@@ -1,22 +1,25 @@
 # axum_static
-![](https://img.shields.io/badge/language-Rust-red) ![](https://img.shields.io/badge/version-1.2.1-brightgreen) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/myyrakle/axum_static/blob/master/LICENSE) 
+
+![](https://img.shields.io/badge/language-Rust-red) ![](https://img.shields.io/badge/version-1.2.2-brightgreen) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/myyrakle/axum_static/blob/master/LICENSE)
 
 static file serving router for axum server
 
 ## requirements
 
-1. axum 0.6.*
+1. axum 0.6.\*
 
 ## guide
 
 Usage is very simple.
 
 First install crate.
+
 ```
 cargo add axum_static
 ```
 
 Then, create a static route and nest it in the existing route like so
+
 ```
 let app = Router::new()
         .route("/", get(index))
