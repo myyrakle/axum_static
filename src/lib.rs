@@ -85,6 +85,7 @@ pub async fn content_type_middleware<B>(req: Request<B>, next: Next<B>) -> Respo
             "rtf" => "application/rtf",
             "odt" => "application/vnd.oasis.opendocument.text",
             "ods" => "application/vnd.oasis.opendocument.spreadsheet",
+            "wasm" => "application/wasm",
             _ => "application/octet-stream",
         };
 
