@@ -1,23 +1,26 @@
 use axum::{
-    http::{Request, StatusCode},
+    body::Body,
+    http::Request,
     middleware::{from_fn, Next},
-    response::{IntoResponse, Response},
+    response::Response,
     routing::get_service,
     Router,
 };
 use std::path::Path;
 use tower_http::services::ServeDir;
 
-pub async fn content_type_middleware<B>(req: Request<B>, next: Next<B>) -> Response {
-    let uri = req.uri().to_owned();
+pub async fn content_type_middleware(request: Request<Body>, next: Next) -> Response {
+    let uri = request.uri().to_owned();
     let path = uri.path();
 
     let splited = path.split(".").collect::<Vec<_>>();
-    if let Some(extension) = splited.last() {
-        let mut response = next.run(req).await;
-        let extension = extension.to_owned().to_lowercase();
 
-        let content_type = match extension.as_str() {
+    let mut response = next.run(request).await;
+
+    let content_type = if let Some(ext) = splited.last() {
+        let extension = ext.to_owned().to_lowercase();
+
+        match extension.as_str() {
             "html" => "text/html",
             "css" => "text/css",
             "js" => "text/javascript",
@@ -86,36 +89,30 @@ pub async fn content_type_middleware<B>(req: Request<B>, next: Next<B>) -> Respo
             "odt" => "application/vnd.oasis.opendocument.text",
             "ods" => "application/vnd.oasis.opendocument.spreadsheet",
             "wasm" => "application/wasm",
-            _ => "application/octet-stream",
-        };
-
-        if let Ok(content_type) = content_type.parse() {
-            response.headers_mut().insert("Content-Type", content_type);
+            _ => "text/html",
         }
-
-        response
     } else {
-        let mut response = next.run(req).await;
+        "unknown"
+    };
 
-        if let Ok(content_type) = "application/octet-stream".parse() {
-            response.headers_mut().insert("Content-Type", content_type);
-        }
-
-        response
+    if let Ok(content_type) = content_type.parse() {
+        response.headers_mut().insert("Content-Type", content_type);
     }
+
+    response
 }
 
 pub fn static_router<P: AsRef<Path>>(path: P) -> Router {
-    async fn handle_error(err: std::io::Error) -> impl IntoResponse {
-        (
-            StatusCode::INTERNAL_SERVER_ERROR,
-            format!("static router IO error: {:?}", err),
-        )
-            .into_response()
-    }
+    // async fn handle_error(err: std::io::Error) -> impl IntoResponse {
+    //     (
+    //         StatusCode::INTERNAL_SERVER_ERROR,
+    //         format!("static router IO error: {:?}", err),
+    //     )
+    //         .into_response()
+    // }
 
-    let serve_dir = ServeDir::new(path);
-    let serve_dir = get_service(serve_dir).handle_error(handle_error);
+    let serve_dir = ServeDir::new(path).append_index_html_on_directories(true);
+    let serve_dir = get_service(serve_dir); //.handle_error(handle_error);
 
     let router = Router::new()
         .fallback_service(serve_dir)

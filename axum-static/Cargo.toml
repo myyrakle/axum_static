@@ -1,0 +1,17 @@
+[package]
+name = "axum_static"
+version = "1.2.3"
+edition = "2021"
+authors = ["myyrakle <sssang97@naver.com>"]
+description = "static file serving router for axum server"
+keywords = ["axum", "static", "file", "serve"]
+license = "MIT"
+include = ["src/lib.rs", "Cargo.toml", "docs"]
+readme = "README.md"
+repository = "https://github.com/myyrakle/axum_static"                          #레포지토리
+documentation = "https://github.com/myyrakle/axum_static/blob/master/README.md" #문서 사이트
+homepage = "https://github.com/myyrakle/axum_static/blob/master/README.md"      #홈페이지 사이트
+
+[dependencies]
+axum = "0.7.4"
+tower-http = { version = "0.5.1", features = ["fs"] }
