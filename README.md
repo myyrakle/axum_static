@@ -8,6 +8,7 @@ static file serving for axum
 
 You must use axum_static that matches your axum version.
 
+- axum 0.6 => axum_static 1.6
 - axum 0.7 => axum_static 1.7
 
 ## Usage
