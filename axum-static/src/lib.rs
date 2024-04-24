@@ -89,7 +89,7 @@ pub async fn content_type_middleware(request: Request<Body>, next: Next) -> Resp
             "odt" => "application/vnd.oasis.opendocument.text",
             "ods" => "application/vnd.oasis.opendocument.spreadsheet",
             "wasm" => "application/wasm",
-            _ => "text/html",
+            _ => "application/octet-stream",
         }
     } else {
         "unknown"
