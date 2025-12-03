@@ -1,17 +1,42 @@
 [package]
-name = "axum_static"
-version = "1.7.1"
-edition = "2021"
-authors = ["myyrakle <sssang97@naver.com>"]
-description = "static file serving router for axum server"
-keywords = ["axum", "static", "file", "serve"]
-license = "MIT"
-include = ["src/lib.rs", "Cargo.toml", "docs"]
-readme = "./../README.md"
-repository = "https://github.com/myyrakle/axum_static"                          
-documentation = "https://github.com/myyrakle/axum_static/blob/master/README.md" 
-homepage = "https://github.com/myyrakle/axum_static/blob/master/README.md"      
+  name = "axum_static"
+  version = "1.8.6"
+  edition = "2024"
+  description = "static file serving router for axum server"
+  documentation = "https://docs.rs/axum_static"
+  readme = "./../README.md"
+  repository = "https://github.com/azzybana/axum_static"
+  license = "MIT"
+  keywords = ["axum", "file", "serve", "static"]
+  include = ["Cargo.toml", "docs", "src/lib.rs"]
+
+[package.metadata]
+  docs.rs = { all-features = true }
+  authors = [
+    "myyrakle <sssang97@naver.com>",
+    "Azzybana Raccoon <121582001+Azzybana@users.noreply.github.com>"
+  ]
 
 [dependencies]
-axum = "0.7.4"
-tower-http = { version = "0.5.1", features = ["fs"] }
+  axum = "0.8.6"
+  tower-http = { version = "0.6.6", features = ["fs"] }
+  mime_guess = { version = "2.0.5", optional = true }
+  status_code = { version = "0.1.0", optional = true }
+  tracing = { version = "0.1", optional = true }
+  tracing-subscriber = { version = "0.3", features = [
+    "env-filter"
+  ], optional = true }
+[lints.clippy]
+  correctness = "deny"
+  suspicious = "deny"
+  style = "deny"
+  complexity = "deny"
+  perf = "deny"
+  pedantic = "deny"
+
+[features]
+  default = []
+  handle_error = []
+  mime_guess = ["dep:mime_guess"]
+  status_code = ["dep:status_code", "handle_error"]
+  tracing = ["dep:tracing", "dep:tracing-subscriber"]

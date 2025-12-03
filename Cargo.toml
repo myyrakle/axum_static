@@ -1,4 +1,4 @@
 [workspace]
-members = ["axum-static", "examples/*"]
-default-members = ["axum-static"]
-resolver = "2"
+    members = ["axum-static", "examples/*"]
+    default-members = ["axum-static"]
+    resolver = "3"
