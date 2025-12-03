@@ -1,6 +1,6 @@
 [package]
   name = "axum_static"
-  version = "1.8.6"
+  version = "1.8.0"
   edition = "2024"
   description = "static file serving router for axum server"
   documentation = "https://docs.rs/axum_static"
@@ -18,7 +18,7 @@
   ]
 
 [dependencies]
-  axum = "0.8.6"
+  axum = "0.8.0"
   tower-http = { version = "0.6.6", features = ["fs"] }
   mime_guess = { version = "2.0.5", optional = true }
   status_code = { version = "0.1.0", optional = true }
